@@ -20,8 +20,8 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @OneToOne
-    @MapsId
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cars_id")
     private Car car;
 
     public User() {
@@ -79,7 +79,8 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(car, user.car);
+        return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) &&
+                Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(car, user.car);
     }
 
     @Override
@@ -91,9 +92,9 @@ public class User {
     public String toString() {
         return "User: " +
                 "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
+                ", firstName='" + firstName +
+                ", lastName='" + lastName +
+                ", email='" + email +
                 ", car=" + car;
     }
 }
