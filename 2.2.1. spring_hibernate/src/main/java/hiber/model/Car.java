@@ -8,6 +8,7 @@ import java.util.Objects;
 public class Car {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -16,16 +17,18 @@ public class Car {
 
     @Column(name = "series")
     private int series;
-    @OneToOne(mappedBy = "car")
-    private User user;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "users_id", referencedColumnName = "id")
+    private User user;
 
     public Car() {
     }
 
-    public Car(String model, int series) {
+    public Car(String model, int series, User user) {
         this.model = model;
         this.series = series;
+        this.user = user;
     }
 
     public User getUser() {
